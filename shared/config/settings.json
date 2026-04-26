@@ -1,0 +1,49 @@
+{
+  "project": {
+    "name": "BioSeek",
+    "tagline": "Biomedical information retrieval and data mining for retrieval-method comparison.",
+    "research_question": "How do different retrieval methods affect both the relevance and the diversity/structure of biomedical information retrieved from PubMed?"
+  },
+  "datasets": {
+    "document_source": "Curated PubMed subset with PMIDs",
+    "query_source": "BioASQ Task B",
+    "join_key": "PMID",
+    "output_formats": ["parquet", "csv", "json"]
+  },
+  "retrieval_methods": [
+    {
+      "id": "tfidf",
+      "label": "TF-IDF",
+      "family": "lexical",
+      "description": "Sparse lexical baseline using term weighting over titles and abstracts."
+    },
+    {
+      "id": "bm25",
+      "label": "BM25",
+      "family": "lexical",
+      "description": "Strong probabilistic lexical retrieval baseline."
+    },
+    {
+      "id": "dense",
+      "label": "Dense Retrieval",
+      "family": "semantic",
+      "description": "Sentence-transformer embeddings indexed with FAISS."
+    },
+    {
+      "id": "hybrid",
+      "label": "Hybrid Retrieval",
+      "family": "combined",
+      "description": "Weighted fusion of lexical and dense retrieval scores."
+    }
+  ],
+  "analysis_modules": [
+    "clustering",
+    "diversity_analysis",
+    "query_type_analysis"
+  ],
+  "frontend": {
+    "default_query": "What biomarkers are associated with early Alzheimer's disease?",
+    "results_per_method": 3
+  }
+}
+
