@@ -1,0 +1,14 @@
+{
+  "dataset": {
+    "documents": 83206,
+    "queries": 4835,
+    "documentSource": "Curated PubMed subset with PMIDs",
+    "querySource": "BioASQ Task B",
+    "joinKey": "PMID"
+  },
+  "analysis": {
+    "relevance": "Measure how well each method retrieves BioASQ-labeled relevant PubMed documents using a shared benchmark set.",
+    "diversity": "Compare topical spread, cluster coverage, and overlap between retrieved result sets to see whether methods surface different evidence neighborhoods.",
+    "queryTypes": "Break down performance by question style such as treatment, diagnosis, biomarkers, or mechanistic biology."
+  }
+}

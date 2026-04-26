@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --background: #f7fbfb;
+  --foreground: #07111f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(14, 116, 144, 0.12), transparent 32%),
+    radial-gradient(circle at top right, rgba(231, 111, 81, 0.08), transparent 26%),
+    linear-gradient(180deg, #f8fcfc 0%, #eef5f6 52%, #fdf8ef 100%);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.data-grid {
+  background-size: 28px 28px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.75s ease-out both;
+}
+
+::selection {
+  background: rgba(14, 116, 144, 0.16);
+}

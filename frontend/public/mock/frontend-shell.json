@@ -1,0 +1,249 @@
+{
+  "featuredQueries": [
+    "heart attack",
+    "myocardial infarction",
+    "diabetes treatment",
+    "drug adverse effects",
+    "breast cancer biomarkers"
+  ],
+  "compare": {
+    "query": "diabetes treatment",
+    "highlights": [
+      {
+        "label": "Unified dataset",
+        "value": "BioASQ + PubMed",
+        "note": "Every method is evaluated against the same exact-PMID relevance set."
+      },
+      {
+        "label": "Most precise",
+        "value": "BM25",
+        "note": "Strong term matching stays highly competitive on biomedical phrasing."
+      },
+      {
+        "label": "Most balanced",
+        "value": "Hybrid",
+        "note": "Hybrid narrows the gap between lexical precision and semantic breadth."
+      }
+    ],
+    "rows": [
+      {
+        "method": "TF-IDF",
+        "strength": "Transparent lexical baseline with broad coverage.",
+        "tradeoff": "Less robust when biomedical synonyms diverge from the query string.",
+        "bestFor": "Course-friendly baselines and interpretable comparisons."
+      },
+      {
+        "method": "BM25",
+        "strength": "Consistently precise when key biomedical terms appear verbatim.",
+        "tradeoff": "Can stay narrow when concept wording drifts.",
+        "bestFor": "Exact terminology, focused clinical phrasing, and strong first-pass ranking."
+      },
+      {
+        "method": "Dense",
+        "strength": "Helps when semantic similarity matters more than word overlap.",
+        "tradeoff": "Lower precision in this project when dense relevance neighborhoods get too loose.",
+        "bestFor": "Terminology mismatch, exploratory browsing, and semantic recall."
+      },
+      {
+        "method": "Hybrid",
+        "strength": "Combines lexical control with semantic flexibility.",
+        "tradeoff": "More moving parts and more score calibration work.",
+        "bestFor": "Balanced retrieval, query comparison, and robust exploration."
+      }
+    ]
+  },
+  "explore": {
+    "clusters": [
+      {
+        "clusterId": "01",
+        "label": "Treatment Methods",
+        "keywords": ["metformin", "A1c", "trial", "adherence"],
+        "size": 18,
+        "documents": [
+          "Metformin intensification strategies across type 2 diabetes cohorts.",
+          "Comparative adherence outcomes after escalating oral therapy.",
+          "Real-world A1c reduction after guideline-driven treatment changes."
+        ]
+      },
+      {
+        "clusterId": "02",
+        "label": "Clinical Outcomes",
+        "keywords": ["cardiovascular", "weight", "risk", "outcomes"],
+        "size": 7,
+        "documents": [
+          "Cardiovascular endpoint analysis for glucose-lowering therapies.",
+          "Weight-sensitive treatment selection in metabolic disease management.",
+          "Outcome tradeoffs in high-risk diabetes populations."
+        ]
+      },
+      {
+        "clusterId": "03",
+        "label": "Side Effects",
+        "keywords": ["safety", "renal", "hypoglycemia", "toxicity"],
+        "size": 5,
+        "documents": [
+          "Renal safety signals in second-line diabetes pharmacotherapy.",
+          "Hypoglycemia burden after treatment intensification.",
+          "Safety monitoring patterns in multi-drug diabetes care."
+        ]
+      },
+      {
+        "clusterId": "04",
+        "label": "Trial Design",
+        "keywords": ["randomized", "control", "follow-up", "multicenter"],
+        "size": 4,
+        "documents": [
+          "Multicenter design considerations in diabetes intervention trials.",
+          "Outcome reporting differences across randomized glucose-lowering studies.",
+          "Follow-up duration and endpoint quality in metabolic trials."
+        ]
+      },
+      {
+        "clusterId": "05",
+        "label": "Biomarkers",
+        "keywords": ["insulin", "inflammation", "proteomics", "prediction"],
+        "size": 6,
+        "documents": [
+          "Inflammatory biomarker panels associated with treatment response.",
+          "Proteomic predictors of glycemic control after therapy escalation.",
+          "Insulin-resistance markers in precision diabetes management."
+        ]
+      }
+    ],
+    "themeCoverage": [
+      { "method": "TF-IDF", "value": "broadest spread" },
+      { "method": "BM25", "value": "precise and broad" },
+      { "method": "Dense", "value": "narrower themes" },
+      { "method": "Hybrid", "value": "balanced coverage" }
+    ]
+  },
+  "evaluation": {
+    "metrics": [
+      {
+        "method": "TF-IDF",
+        "p5": 0.674,
+        "p10": 0.612,
+        "recall10": 0.583,
+        "ndcg5": 0.719,
+        "ndcg10": 0.742,
+        "mrr": 0.701
+      },
+      {
+        "method": "BM25",
+        "p5": 0.721,
+        "p10": 0.658,
+        "recall10": 0.624,
+        "ndcg5": 0.786,
+        "ndcg10": 0.81,
+        "mrr": 0.768
+      },
+      {
+        "method": "Dense",
+        "p5": 0.563,
+        "p10": 0.522,
+        "recall10": 0.491,
+        "ndcg5": 0.588,
+        "ndcg10": 0.614,
+        "mrr": 0.592
+      },
+      {
+        "method": "Hybrid",
+        "p5": 0.706,
+        "p10": 0.641,
+        "recall10": 0.609,
+        "ndcg5": 0.766,
+        "ndcg10": 0.79,
+        "mrr": 0.749
+      }
+    ],
+    "takeaways": [
+      {
+        "title": "Best overall",
+        "body": "BM25 leads the current evaluation run, especially on exact biomedical wording and focused clinical questions."
+      },
+      {
+        "title": "Where lexical wins",
+        "body": "TF-IDF and BM25 remain strongest when query terms align closely with article titles, abstracts, and specialist terminology."
+      },
+      {
+        "title": "Where dense and hybrid help",
+        "body": "Dense retrieval contributes when concept wording drifts, while hybrid preserves better precision by anchoring semantic search to lexical evidence."
+      }
+    ],
+    "queryBuckets": [
+      {
+        "bucket": "Exact terminology queries",
+        "winner": "BM25",
+        "note": "Verbatim biomedical phrasing still gives BM25 the cleanest advantage."
+      },
+      {
+        "bucket": "Synonym-heavy queries",
+        "winner": "Hybrid",
+        "note": "Hybrid absorbs terminology mismatch without losing too much lexical precision."
+      },
+      {
+        "bucket": "Treatment and intervention queries",
+        "winner": "BM25",
+        "note": "Clinical intervention wording remains well served by lexical ranking."
+      },
+      {
+        "bucket": "Broad exploratory queries",
+        "winner": "Hybrid",
+        "note": "Hybrid is the safer choice when broader evidence neighborhoods matter."
+      }
+    ],
+    "examples": [
+      {
+        "method": "TF-IDF",
+        "bestQuery": "heart attack treatment",
+        "bestNote": "Literal clinical phrasing aligned cleanly with titles and abstracts.",
+        "worstQuery": "drug adverse effects in metabolism",
+        "worstNote": "Broader phrasing scattered lexical matches across multiple subtopics."
+      },
+      {
+        "method": "BM25",
+        "bestQuery": "myocardial infarction biomarkers",
+        "bestNote": "Specialist terminology produced a precise and well-ranked result list.",
+        "worstQuery": "broad diabetes outcomes",
+        "worstNote": "Broader intent reduced the advantage of exact term matching."
+      },
+      {
+        "method": "Dense",
+        "bestQuery": "drug adverse effects",
+        "bestNote": "Semantic similarity helped recover safety-oriented papers with looser wording.",
+        "worstQuery": "myocardial infarction guideline therapy",
+        "worstNote": "The semantic neighborhood became too broad compared with the lexical target."
+      },
+      {
+        "method": "Hybrid",
+        "bestQuery": "diabetes treatment",
+        "bestNote": "Hybrid kept the strongest lexical documents while preserving topical breadth.",
+        "worstQuery": "rare biomarker mechanisms",
+        "worstNote": "Sparse terminology and niche phrasing still make this a harder case."
+      }
+    ],
+    "diversitySummary": {
+      "title": "BM25 is the strongest relevance baseline, while Hybrid provides the best relevance-diversity balance.",
+      "body": "Across the unified dataset, BM25 stays slightly narrower but more precise, TF-IDF is broadest, Dense is semantically broader than exact term matching but less precise in this run, and Hybrid preserves much of BM25's ranking strength while covering a wider set of biomedical themes."
+    }
+  },
+  "about": {
+    "principles": [
+      "Course substance comes first: the UI exists to expose retrieval behavior rather than hide it behind product polish.",
+      "The corpus is intentionally practical: a curated PubMed subset with PMIDs chosen for local experimentation, indexing, and evaluation.",
+      "The academic story stays explicit from end to end: BioASQ questions, exact PMID joins, retrieval comparison, clustering, and diversity analysis."
+    ],
+    "pipeline": [
+      "Load BioASQ Task B questions and relevance judgments.",
+      "Build a curated PubMed subset with relevant PMIDs plus distractor documents.",
+      "Join the two sources using exact PMIDs only.",
+      "Index the unified and exploration corpora for lexical and dense retrieval."
+    ],
+    "datasetNotes": [
+      "Curated PubMed subset",
+      "BioASQ Task B labels",
+      "Exact PMID join",
+      "Local experimentation scale"
+    ]
+  }
+}

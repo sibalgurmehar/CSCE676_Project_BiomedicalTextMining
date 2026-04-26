@@ -1,0 +1,142 @@
+[
+  {
+    "method": "TF-IDF",
+    "top_documents": [
+      {
+        "pmid": "30124567",
+        "title": "Peripheral blood biomarkers linked to preclinical Alzheimer's disease progression.",
+        "abstract_snippet": "Peripheral blood biomarker panels were associated with early cognitive decline trajectories and showed promise for preclinical screening in longitudinal cohorts.",
+        "score": 0.91,
+        "cluster": "biomarkers",
+        "relevant": true,
+        "journal": "Alzheimer's Research & Therapy",
+        "year": 2021
+      },
+      {
+        "pmid": "28711455",
+        "title": "Neuroinflammation signatures and early cognitive decline in mild impairment cohorts.",
+        "abstract_snippet": "Inflammatory signatures in peripheral samples correlated with conversion risk and offered an interpretable bridge between immunology and early dementia progression.",
+        "score": 0.84,
+        "cluster": "inflammation",
+        "relevant": true,
+        "journal": "Brain Behavior and Immunity",
+        "year": 2019
+      },
+      {
+        "pmid": "27844321",
+        "title": "Longitudinal plasma protein changes preceding Alzheimer's diagnosis.",
+        "abstract_snippet": "Serial proteomic measurements identified several circulating proteins that shifted before clinical diagnosis, suggesting a broader surveillance signal.",
+        "score": 0.8,
+        "cluster": "proteomics",
+        "relevant": false,
+        "journal": "Translational Neurodegeneration",
+        "year": 2018
+      }
+    ]
+  },
+  {
+    "method": "BM25",
+    "top_documents": [
+      {
+        "pmid": "30124567",
+        "title": "Peripheral blood biomarkers linked to preclinical Alzheimer's disease progression.",
+        "abstract_snippet": "Exact biomarker phrasing and disease-stage terminology align strongly here, making the paper a strong lexical match for early-detection queries.",
+        "score": 12.74,
+        "cluster": "biomarkers",
+        "relevant": true,
+        "journal": "Alzheimer's Research & Therapy",
+        "year": 2021
+      },
+      {
+        "pmid": "31200045",
+        "title": "Amyloid-associated serum panels for identifying early-stage Alzheimer's disease.",
+        "abstract_snippet": "Serum-based amyloid marker combinations improved classification of early-stage disease and reflected the language commonly used in diagnostic studies.",
+        "score": 11.93,
+        "cluster": "amyloid",
+        "relevant": true,
+        "journal": "Journal of Alzheimer's Disease",
+        "year": 2020
+      },
+      {
+        "pmid": "26641193",
+        "title": "Clinical biomarker review for differential diagnosis of early neurodegenerative disease.",
+        "abstract_snippet": "This review synthesizes biomarker terminology across related neurodegenerative disorders, which helps lexical systems even when the article is broader than the query.",
+        "score": 10.88,
+        "cluster": "clinical-review",
+        "relevant": false,
+        "journal": "Lancet Neurology",
+        "year": 2017
+      }
+    ]
+  },
+  {
+    "method": "Dense Retrieval",
+    "top_documents": [
+      {
+        "pmid": "31987311",
+        "title": "Transcriptomic markers in blood reveal early Alzheimer's disease pathways.",
+        "abstract_snippet": "Transcriptomic evidence captured pathway-level disease activity and surfaced semantically related work that does not always share the dominant biomarker vocabulary.",
+        "score": 0.88,
+        "cluster": "transcriptomics",
+        "relevant": true,
+        "journal": "Molecular Neurobiology",
+        "year": 2022
+      },
+      {
+        "pmid": "28711455",
+        "title": "Neuroinflammation signatures and early cognitive decline in mild impairment cohorts.",
+        "abstract_snippet": "The semantic retriever links inflammation-focused evidence to early disease questions even when the title does not mirror the initial query phrasing.",
+        "score": 0.86,
+        "cluster": "inflammation",
+        "relevant": true,
+        "journal": "Brain Behavior and Immunity",
+        "year": 2019
+      },
+      {
+        "pmid": "32411777",
+        "title": "Multimodal digital phenotyping and molecular correlates of early dementia risk.",
+        "abstract_snippet": "Broader semantic associations can pull in papers at the edge of the topic neighborhood, improving breadth but sometimes reducing precision.",
+        "score": 0.81,
+        "cluster": "digital-health",
+        "relevant": false,
+        "journal": "npj Digital Medicine",
+        "year": 2023
+      }
+    ]
+  },
+  {
+    "method": "Hybrid Retrieval",
+    "top_documents": [
+      {
+        "pmid": "30124567",
+        "title": "Peripheral blood biomarkers linked to preclinical Alzheimer's disease progression.",
+        "abstract_snippet": "The hybrid run keeps the strongest lexical biomarker match while still preserving broader semantic coverage around early-stage disease progression.",
+        "score": 0.94,
+        "cluster": "biomarkers",
+        "relevant": true,
+        "journal": "Alzheimer's Research & Therapy",
+        "year": 2021
+      },
+      {
+        "pmid": "31987311",
+        "title": "Transcriptomic markers in blood reveal early Alzheimer's disease pathways.",
+        "abstract_snippet": "Dense semantics help recover pathway-oriented evidence, then lexical scoring stabilizes the final rank order.",
+        "score": 0.9,
+        "cluster": "transcriptomics",
+        "relevant": true,
+        "journal": "Molecular Neurobiology",
+        "year": 2022
+      },
+      {
+        "pmid": "31200045",
+        "title": "Amyloid-associated serum panels for identifying early-stage Alzheimer's disease.",
+        "abstract_snippet": "The combined method keeps canonical biomarker documents close to the top while maintaining a more varied evidence surface.",
+        "score": 0.86,
+        "cluster": "amyloid",
+        "relevant": true,
+        "journal": "Journal of Alzheimer's Disease",
+        "year": 2020
+      }
+    ]
+  }
+]
