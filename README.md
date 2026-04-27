@@ -9,14 +9,19 @@
 
 Biomedical literature is growing at an unprecedented scale, making it increasingly difficult for researchers and practitioners to efficiently locate relevant and comprehensive evidence. Traditional information retrieval (IR) systems are typically evaluated using relevance-based metrics such as Precision@k, Recall, MRR, and nDCG. However, these metrics do not capture how different retrieval methods influence the *structure*, *diversity*, and *interpretability* of the returned information.
 
-This project, **BioSeek**, investigates how different retrieval paradigms—lexical (TF-IDF, BM25), dense semantic retrieval, and hybrid approaches—affect not only retrieval accuracy but also the organization and breadth of biomedical knowledge surfaced to users. The goal is to move beyond relevance and analyze how retrieval systems shape the evidence landscape itself.
+This project, **BioSeek**, investigates how different retrieval paradigms like lexical (TF-IDF, BM25), dense semantic retrieval, and hybrid approaches, affect not only retrieval accuracy but also the organization and breadth of biomedical knowledge surfaced to users. The goal is to move beyond relevance and analyze how retrieval systems shape the evidence landscape itself.
 
 
 ## 2. Research Questions
 
-1. Which retrieval method performs best under standard IR evaluation metrics?  
-2. Do higher relevance scores correspond to broader and more diverse evidence coverage?  
-3. How do lexical, dense, and hybrid retrieval methods differ in structuring biomedical information?  
+Primary Research Question
+How do different retrieval methods impact both the effectiveness and the structure of biomedical information retrieval?
+
+Sub-questions
+
+1. Which retrieval method performs best under standard IR evaluation metrics (e.g., Precision@k, Recall, nDCG, MRR)?
+2. Do higher relevance scores correspond to broader and more diverse evidence coverage?
+3. How do lexical, dense, and hybrid retrieval methods differ in how they organize and structure retrieved biomedical information?
 
 
 ## 3. Dataset and Processing
