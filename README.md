@@ -2,8 +2,10 @@
 
 ## 🚀 Quick Access (Start Here)
 
-👉 **Main Deliverable Notebook:** `main_notebook.ipynb`  
-👉 **Project Video:** <INSERT VIDEO LINK HERE>  
+-> **Main Deliverable Notebook:** `main_notebook.ipynb`  
+-> **Project Detailed Demo Video:** https://youtu.be/qsRDyH1-u4E 
+-> **Project Introduction Video (Canvas Submission):** https://youtu.be/5AcG82p8YiA
+
 
 ## 1. Project Overview
 
@@ -116,7 +118,16 @@ This highlights the importance of evaluating retrieval systems beyond traditiona
 - `shared/config/`: shared configuration used across backend and frontend pieces
 
 ## 6. How To Reproduce The Work
+### Dataset & Evaluation Files
 
+Due to the large size of the processed dataset and evaluation artifacts, they are not included directly in this repository.  
+
+You can download them from the following link:  
+[Download Data & Evaluation Files](https://drive.google.com/drive/folders/1UlYyxLGghrMv3ZLSC2R-61kkyq0tsCrl?usp=sharing)
+
+After downloading:
+- Place the files in the root directory of the cloned repository
+  
 ### Notebook Reproduction
 
 1. Open `main_notebook.ipynb`.
