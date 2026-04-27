@@ -13,7 +13,14 @@ from app.retrieval.utils import doc_metadata, min_max_normalize
 class HybridRetriever(BaseRetriever):
     method_name = "hybrid"
 
-    def __init__(self, dataset_name: str, lexical_weight: float = 0.6, dense_weight: float = 0.4) -> None:
+    def __init__(
+        self,
+        dataset_name: str,
+        lexical_weight: float = 0.6,
+        dense_weight: float = 0.4,
+        bm25: BM25Retriever | None = None,
+        dense: DenseRetriever | None = None,
+    ) -> None:
         super().__init__(dataset_name)
         self.lexical_weight = float(
             os.getenv("HYBRID_LEXICAL_WEIGHT", lexical_weight)
@@ -21,8 +28,8 @@ class HybridRetriever(BaseRetriever):
         self.dense_weight = float(
             os.getenv("HYBRID_DENSE_WEIGHT", dense_weight)
         )
-        self.bm25 = BM25Retriever(dataset_name)
-        self.dense = DenseRetriever(dataset_name)
+        self.bm25 = bm25 or BM25Retriever(dataset_name)
+        self.dense = dense or DenseRetriever(dataset_name)
         self.docs_df = load_dataset_docs(dataset_name)
         self.docs_by_pmid = {
             str(row["pmid"]): row for _, row in self.docs_df.iterrows()

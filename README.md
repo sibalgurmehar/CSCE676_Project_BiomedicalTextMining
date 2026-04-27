@@ -131,7 +131,7 @@ After downloading:
 ### Notebook Reproduction
 
 1. Open `main_notebook.ipynb`.
-2. Install the dependencies listed in `requirements.txt`.
+2. Install the dependencies listed in `backend/requirements.txt`.
 3. Run the notebook cells in order.
 4. Use the supporting scripts in `scripts/` if you need to rebuild processed data or retrieval indexes.
 
@@ -156,14 +156,15 @@ npm run dev
 
 ## Key Dependencies And Versions
 
-- `Python Version== 3.11`
+- `Python Version== 3.12`
 
 Important Python dependencies currently tracked in `backend/requirements.txt` include:
 
 - `fastapi==0.115.6`
 - `uvicorn[standard]==0.32.1`
 - `scikit-learn==1.6.0`
-- `sentence-transformers==3.3.1`
+- `sentence-transformers==5.4.1`
+- `torch==2.9.0`
 - `faiss-cpu==1.13.2`
 - `pandas==3.0.2`
 - `pyarrow==23.0.1`
@@ -202,4 +203,3 @@ Important frontend dependencies currently tracked in `frontend/package.json` inc
 - `GET /api/diversity/summary`
 - `GET /api/dataset-info`
 - `POST /api/ai-polish`
-

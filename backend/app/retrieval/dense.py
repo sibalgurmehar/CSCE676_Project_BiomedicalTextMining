@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+from importlib import metadata
 
 import numpy as np
 
@@ -30,18 +31,27 @@ class DenseRetriever(BaseRetriever):
         self._loaded = False
 
     @staticmethod
-    def _sentence_transformer_kwargs(local_files_only: bool) -> dict[str, object]:
-        # Force transformers to materialize weights eagerly instead of using a
-        # low-memory/meta-device initialization path that later breaks when
-        # sentence-transformers moves the model onto the target device.
-        return {
-            "local_files_only": local_files_only,
+    def _is_offline_mode() -> bool:
+        return os.getenv("HF_HUB_OFFLINE") == "1" or os.getenv("TRANSFORMERS_OFFLINE") == "1"
+
+    @classmethod
+    def _sentence_transformer_kwargs(cls) -> list[dict[str, object]]:
+        # Prefer the simplest CPU load path first. Older sentence-transformers
+        # releases combined with newer transformers versions can trip a meta
+        # tensor path when extra model kwargs are forwarded.
+        base_kwargs: dict[str, object] = {
+            "local_files_only": cls._is_offline_mode(),
             "device": "cpu",
+            "backend": "torch",
+        }
+        eager_kwargs = {
+            **base_kwargs,
             "model_kwargs": {
                 "low_cpu_mem_usage": False,
                 "device_map": None,
             },
         }
+        return [base_kwargs, eager_kwargs]
 
     def _import_dense_dependencies(self):
         try:
@@ -61,16 +71,57 @@ class DenseRetriever(BaseRetriever):
                 LOGGER.warning("Could not set torch interop threads; continuing with existing runtime setting.")
         return faiss, SentenceTransformer
 
+    def _load_sentence_transformer(self, SentenceTransformer, model_name: str):
+        last_error: Exception | None = None
+        for kwargs in self._sentence_transformer_kwargs():
+            try:
+                LOGGER.info(
+                    "Loading sentence-transformer model=%s offline=%s kwargs=%s",
+                    model_name,
+                    kwargs["local_files_only"],
+                    sorted(key for key in kwargs if key != "model_kwargs"),
+                )
+                return SentenceTransformer(model_name, **kwargs)
+            except Exception as exc:
+                last_error = exc
+                if "meta tensor" not in str(exc).lower():
+                    continue
+                LOGGER.warning(
+                    "Dense model load hit a meta-tensor path for model=%s with kwargs=%s",
+                    model_name,
+                    kwargs,
+                )
+
+        sentence_transformers_version = metadata.version("sentence-transformers")
+        transformers_version = metadata.version("transformers")
+        message = (
+            "Dense retrieval model loading failed. "
+            f"Installed versions: sentence-transformers=={sentence_transformers_version}, "
+            f"transformers=={transformers_version}. "
+        )
+        if last_error and "meta tensor" in str(last_error).lower():
+            message += (
+                "This usually means the sentence-transformers and transformers "
+                "packages are on an incompatible combination that leaves the model "
+                "on the meta device during CPU transfer. Reinstall the backend "
+                "dependencies from backend/requirements.txt and restart the API."
+            )
+        elif last_error and "local_files_only" in str(last_error).lower():
+            message += (
+                "The environment is in offline mode and the embedding model is not "
+                "available in the local Hugging Face cache."
+            )
+        elif last_error:
+            message += str(last_error)
+        raise RuntimeError(message) from last_error
+
     def build(self) -> None:
         faiss, SentenceTransformer = self._import_dense_dependencies()
         docs_df = load_dataset_docs(self.dataset_name)
         texts = docs_df["retrieval_text"].fillna("").astype(str).tolist()
 
         LOGGER.info("Building dense index for dataset=%s model=%s", self.dataset_name, self.model_name)
-        model = SentenceTransformer(
-            self.model_name,
-            **self._sentence_transformer_kwargs(local_files_only=False),
-        )
+        model = self._load_sentence_transformer(SentenceTransformer, self.model_name)
         embeddings = model.encode(
             texts,
             batch_size=16,
@@ -115,10 +166,7 @@ class DenseRetriever(BaseRetriever):
             self.index_name,
             meta["model_name"],
         )
-        self.model = SentenceTransformer(
-            meta["model_name"],
-            **self._sentence_transformer_kwargs(local_files_only=False),
-        )
+        self.model = self._load_sentence_transformer(SentenceTransformer, meta["model_name"])
         self.index = faiss.read_index(str(index_dir / "faiss.index"))
         self._loaded = True
 

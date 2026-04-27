@@ -1,0 +1,9 @@
+/.venv
+/app/__pycache__
+/.python-version
+/app/retrieval/__pycache__
+/app/clustering/__pycache__
+/app/routers/__pycache__
+/app/schemas/__pycache__
+/app/services/__pycache__
+/app/config/__pycache__

@@ -23,7 +23,11 @@ class RetrievalService:
         if normalized == "dense":
             return DenseRetriever(dataset_name)
         if normalized == "hybrid":
-            return HybridRetriever(dataset_name)
+            return HybridRetriever(
+                dataset_name,
+                bm25=self.get_retriever(dataset_name, "bm25"),
+                dense=self.get_retriever(dataset_name, "dense"),
+            )
         raise ValueError(f"Unsupported retrieval method '{method}'.")
 
     def get_retriever(self, dataset_name: str, method: str) -> BaseRetriever:
@@ -55,4 +59,3 @@ class RetrievalService:
 @lru_cache
 def get_retrieval_service() -> RetrievalService:
     return RetrievalService()
-
