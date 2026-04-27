@@ -141,6 +141,7 @@ npm run dev
 ## Key Dependencies And Versions
 
 - `Python Version== 3.11`
+
 Important Python dependencies currently tracked in `backend/requirements.txt` include:
 
 - `fastapi==0.115.6`
