@@ -1,74 +1,60 @@
-# BioSeek
+# BioSeek: Analyzing Retrieval Methods and Evidence Structure in Biomedical Search
 
-BioSeek is a biomedical text mining and information retrieval project built around a simple research question: how does retrieval method choice change not only relevance, but also the diversity and structure of the biomedical evidence returned for a query?
+## 🚀 Quick Access (Start Here)
 
-This repository brings together the project notebooks, analysis scripts, backend and frontend demo code, and supporting documentation for the final deliverable.
+👉 **Main Deliverable Notebook:** `main_notebook.ipynb`  
+👉 **Project Video:** <INSERT VIDEO LINK HERE>  
 
-## Start Here
+## 1. Project Overview
 
-- Final deliverable notebook: `main_notebook.ipynb`
-- Checkpoint 1 notebook: `checkpoints/637004205_ProjectCheckpoint1_CS676.ipynb`
-- Checkpoint 2 notebook: `checkpoints/637004205_Project_Checkpoint2_CS676.ipynb`
-- Supporting analysis notebooks: `notebooks/`
+Biomedical literature is growing at an unprecedented scale, making it increasingly difficult for researchers and practitioners to efficiently locate relevant and comprehensive evidence. Traditional information retrieval (IR) systems are typically evaluated using relevance-based metrics such as Precision@k, Recall, MRR, and nDCG. However, these metrics do not capture how different retrieval methods influence the *structure*, *diversity*, and *interpretability* of the returned information.
 
-## Project Overview
+This project, **BioSeek**, investigates how different retrieval paradigms—lexical (TF-IDF, BM25), dense semantic retrieval, and hybrid approaches—affect not only retrieval accuracy but also the organization and breadth of biomedical knowledge surfaced to users. The goal is to move beyond relevance and analyze how retrieval systems shape the evidence landscape itself.
 
-Biomedical retrieval is typically evaluated using relevance metrics such as Precision@k, Recall, MRR, and nDCG. However, these metrics do not fully capture how different systems present and organize information. This project asks a broader question:
 
-> How do different retrieval methods affect both the relevance and the diversity or structure of biomedical information retrieved from PubMed?
+## 2. Research Questions
 
-To explore this, BioSeek compares four retrieval strategies over a PMID-aligned biomedical corpus:
+1. Which retrieval method performs best under standard IR evaluation metrics?  
+2. Do higher relevance scores correspond to broader and more diverse evidence coverage?  
+3. How do lexical, dense, and hybrid retrieval methods differ in structuring biomedical information?  
 
-- TF-IDF
-- BM25
-- Dense semantic retrieval
-- Hybrid retrieval
 
-Beyond standard retrieval quality, the project also analyzes how these methods differ in:
+## 3. Dataset and Processing
 
-- result overlap
-- topical clustering
-- diversity of evidence surfaced
-- behavior across query types
+### Datasets Used
 
-## Research Questions
+- **BioASQ Task B Dataset**  
+  Biomedical queries with expert-annotated relevance judgments  
+  Source: https://bioasq.org/
 
-- Which retrieval method performs best on biomedical queries under standard IR metrics?
-- Do higher relevance scores also correspond to broader and more diverse evidence coverage?
-- How do lexical, dense, and hybrid retrieval methods behave differently across query types?
+- **Curated PubMed Subset**  
+  Biomedical abstracts with PMID identifiers  
+  Source: https://pubmed.ncbi.nlm.nih.gov/
 
-## Dataset And Processing
+### Data Alignment
 
-The project uses:
+- Queries and relevance labels are aligned with PubMed documents using **PMID-based joins**
+- Only exact matches are retained to ensure consistency between retrieval and evaluation
 
-- BioASQ Task B questions and relevance judgments
-- a curated PubMed subset with PMID identifiers
-- exact PMID joins to align queries, relevance labels, and retrieved documents
+### Preprocessing
 
-At a high level, the workflow is:
+- Text normalization and cleaning  
+- Tokenization for lexical retrieval  
+- Embedding generation for dense retrieval  
+- Index construction for each retrieval method  
 
-1. Load BioASQ Task B questions and expert relevance labels.
-2. Build or prepare a curated PubMed subset.
-3. Join BioASQ and PubMed records by exact PMID.
-4. Build retrieval indexes for TF-IDF, BM25, dense, and hybrid methods.
-5. Evaluate retrieval quality across methods.
-6. Run additional analyses on diversity, clustering, and query types.
 
-## Main Results Summary
+## 4. Results Summary
 
-The core takeaway of BioSeek is that retrieval quality in biomedical IR should not be judged by relevance alone. Different retrieval methods can surface meaningfully different slices of the literature, which changes both the breadth of evidence and the structure of the returned result set.
+Retrieval methods influence not only *what* documents are retrieved, but *how biomedical knowledge is structured and explored*.  
 
-The detailed quantitative results, plots, and conclusions are presented in the final curated notebook.
+- Lexical methods (TF-IDF, BM25) produce more precise but narrower results  
+- Dense and hybrid methods improve recall and generate more semantically coherent and diverse evidence  
 
-## Project Video
+This highlights the importance of evaluating retrieval systems beyond traditional relevance metrics.
 
-Add your final project video link here before submission.
 
-Example:
-
-`Project video: https://...`
-
-## Repository Structure
+## 5. Repository Structure
 
 ```text
 .
@@ -124,9 +110,7 @@ Example:
 - `docs/`: supporting writeups on architecture, clustering, dense retrieval, and project framing
 - `shared/config/`: shared configuration used across backend and frontend pieces
 
-## How To Reproduce The Work
-
-This project was developed primarily in Colab for notebook-based experimentation, with a local frontend and backend for the interactive demo.
+## 6. How To Reproduce The Work
 
 ### Notebook Reproduction
 
@@ -135,9 +119,8 @@ This project was developed primarily in Colab for notebook-based experimentation
 3. Run the notebook cells in order.
 4. Use the supporting scripts in `scripts/` if you need to rebuild processed data or retrieval indexes.
 
-If your final submission still relies on Colab, export a `requirements.txt` from Colab and place it at the repository root before submitting.
-
-### Backend
+### Web Application 
+#### Backend
 
 ```bash
 cd backend
@@ -147,7 +130,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-### Frontend
+#### Frontend
 
 ```bash
 cd frontend
@@ -157,6 +140,7 @@ npm run dev
 
 ## Key Dependencies And Versions
 
+- `Python Version== 3.11`
 Important Python dependencies currently tracked in `backend/requirements.txt` include:
 
 - `fastapi==0.115.6`
@@ -176,7 +160,6 @@ Important frontend dependencies currently tracked in `frontend/package.json` inc
 - `tailwindcss==3.4.17`
 - `typescript==5.7.2`
 
-Before submission, also list the Python version used for the final notebook near the top of this README.
 
 ## Main Scripts
 
@@ -203,29 +186,3 @@ Before submission, also list the Python version used for the final notebook near
 - `GET /api/dataset-info`
 - `POST /api/ai-polish`
 
-## Supporting Documents
-
-- [Project story](docs/project_story.md)
-- [Architecture notes](docs/architecture.md)
-- [Clustering notes](docs/clustering.md)
-- [Dense adaptation notes](docs/dense_adaptation.md)
-- [Demo notes](DEMO_NOTES.md)
-- [Report notes](REPORT_NOTES.md)
-
-## Final Submission Checklist
-
-Before submitting the public GitHub link, make sure this repository includes:
-
-- `main_notebook.ipynb` at the expected filename
-- both checkpoint notebooks in `checkpoints/`
-- a root-level `requirements.txt` exported from Colab
-- a project video link in this README
-- a short Python version note in this README
-- any required data access instructions if raw data is too large to commit
-
-## Notes
-
-The current repository already contains the main scripts, checkpoint notebooks, backend, frontend, and supporting documentation. The two remaining deliverable-specific items that should be added before submission are:
-
-- the final curated notebook named `main_notebook.ipynb`
-- the root `requirements.txt` exported from the notebook environment
