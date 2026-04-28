@@ -13,20 +13,14 @@ Biomedical literature is growing at an unprecedented scale, making it increasing
 
 This project, **BioSeek**, investigates how different retrieval paradigms like lexical (TF-IDF, BM25), dense semantic retrieval, and hybrid approaches, affect not only retrieval accuracy but also the organization and breadth of biomedical knowledge surfaced to users. The goal is to move beyond relevance and analyze how retrieval systems shape the evidence landscape itself.
 
----
-
-## Bioseek Main Page
+## Bioseek Main Search Page
 ![Main Page](assets/images/Bioseek_Main_Page.jpeg)
 
----
+##  Clustering Explore Tab
+![Cluster](assets/images/Cluster_Bioseek.jpeg)
 
-## Clustering Output
-![Cluster](assets/images/Cluster Bioseek.jpeg)
-
----
-
-## Evaluation Results
-![Evaluation](assets/images/Evaluation Bioseek.jpeg)
+## Evaluation Tab
+![Evaluation](assets/images/Evaluation_Bioseek.jpeg)
 
 ## 2. Research Questions
 
